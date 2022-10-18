@@ -1,4 +1,4 @@
-const TestReadline = require("./Readline/TestReadline")
+import {TestReadline} from "./Readline/TestReadline";
 
 console.log("Hello")
 

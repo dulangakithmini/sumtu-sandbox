@@ -1,4 +1,4 @@
-const readline = require("readline")
+import readline from "readline";
 
 export class TestReadline {
     public static testReadline() {
@@ -7,27 +7,21 @@ export class TestReadline {
         const upgradeScripts = [
             {
                 version: "1.4.5",
-                configFile: require(`../scripts/upgrades/refdata/config-3.0.0`)
             },
             {
                 version: "1.4.19",
-                configFile: require(`../scripts/upgrades/refdata/config-3.0.0`)
             },
             {
                 version: "3.0.5",
-                configFile: require(`../scripts/upgrades/refdata/config-3.0.0`)
             },
             {
                 version: "2.0.5",
-                configFile: require(`../scripts/upgrades/refdata/config-3.0.0`)
             },
             {
                 version: "9.0.5",
-                configFile: require(`../scripts/upgrades/refdata/config-3.0.0`)
             },
             {
                 version: "6.0.5",
-                configFile: require(`../scripts/upgrades/refdata/config-3.0.0`)
             }
 
         ]
