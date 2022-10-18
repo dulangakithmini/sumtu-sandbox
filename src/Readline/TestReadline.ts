@@ -1,7 +1,7 @@
-import readline from "readline";
+import yesno from "yesno";
 
 export class TestReadline {
-    public static testReadline() {
+    public static async testReadline(): Promise<void> {
         console.log("Hello World");
 
         const upgradeScripts = [
@@ -26,33 +26,18 @@ export class TestReadline {
 
         ]
 
-        const rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout
+        const shouldUpgradeAll = await yesno({
+            question: `Upgrade scripts ${upgradeScripts.map(sortedScript => sortedScript.version).join(", ")} found. Please confirm if the upgrades should be performed?`,
+            defaultValue: true
         });
-
-        rl.question(`Upgrade scripts ${upgradeScripts.map(sortedScript => sortedScript.version).join(", ")} found. Please confirm if the upgrades should be performed? (Y/n) `, async (answer: string) => {
-            if (answer === 'Y' || answer === 'y') {
-                for (const sortedScript of upgradeScripts) {
-
-                    await rl.question(`Upgrade script ${sortedScript.version} found. Please confirm if the upgrade should be performed? (Y/n) `, async (answer: string) => {
-                        if (answer === 'Y' || answer === 'y') {
-                            console.log("Inside y");
-                        } else {
-                            console.log("Inside n");
-
-                        }
-                        rl.close();
-                        console.error("Migrations are not performed.")
-
-                    });
-
-                }
-            }
-            rl.close();
-            console.error("Outer log.")
-        })
-
+        if (!shouldUpgradeAll) return;
+        for (const sortedScript of upgradeScripts) {
+            const shouldUpgradeScript = await yesno({
+                question: `Upgrade script ${sortedScript.version} found. Please confirm if the upgrade should be performed?`,
+                defaultValue: true
+            });
+            if (!shouldUpgradeScript) console.error("Migrations are not performed.")
+        }
     }
 
 }
